@@ -1,0 +1,1 @@
+public record Contact(string Name, string Phone, string Email, string DDD);
