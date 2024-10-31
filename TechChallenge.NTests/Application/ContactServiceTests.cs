@@ -83,5 +83,163 @@ namespace TechChallenge.Tests
             // Act & Assert
             Assert.ThrowsAsync<ArgumentException>(() => _target.AddContact(contact));
         }
+
+        [Test]
+        public async Task GetContacts_ShouldReturnAllContacts()
+        {
+            // Arrange
+            var expectedContacts = new List<Contact>
+            {
+                new Contact(Guid.NewGuid(), "John Doe", "123456789", "john@example.com", "11"),
+                new Contact(Guid.NewGuid(), "Jane Doe", "987654321", "jane@example.com", "21")
+            };
+            _contactRepository.GetContacts().Returns(expectedContacts);
+
+            // Act
+            var result = await _target.GetContacts();
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedContacts));
+            await _contactRepository.Received(1).GetContacts();
+        }
+
+        [Test]
+        public async Task GetContactsByDDD_ShouldReturnFilteredContacts()
+        {
+            // Arrange
+            var ddd = "11";
+            var expectedContacts = new List<Contact>
+            {
+                new Contact(Guid.NewGuid(), "John Doe", "123456789", "john@example.com", "11")
+            };
+            _contactRepository.GetContactsByDDD(ddd).Returns(expectedContacts);
+
+            // Act
+            var result = await _target.GetContactsByDDD(ddd);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedContacts));
+            await _contactRepository.Received(1).GetContactsByDDD(ddd);
+        }
+
+        [Test]
+        public async Task DeleteContactById_ShouldCallRepository()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+
+            // Act
+            await _target.DeleteContactById(id);
+
+            // Assert
+            await _contactRepository.Received(1).DeleteById(id);
+        }
+
+        [Test]
+        public async Task UpdateContact_ShouldUpdateContact()
+        {
+            // Arrange
+            var contact = new UpdateContactDto(
+                Guid.NewGuid(),
+                "John Doe",
+                "123456789",
+                "john.doe@example.com",
+                "11"
+            );
+
+            // Act
+            await _target.UpdateContact(contact);
+
+            // Assert
+            await _contactRepository.Received(1).Update(Arg.Any<Contact>());
+        }
+
+        [Test]
+        public void UpdateContact_ShouldThrowException_WhenIdIsEmpty()
+        {
+            // Arrange
+            var contact = new UpdateContactDto(
+                Guid.Empty,
+                "John Doe",
+                "123456789",
+                "john.doe@example.com",
+                "11"
+            );
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(() => _target.UpdateContact(contact));
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void UpdateContact_ShouldThrowException_WhenNameIsInvalid(string? invalidName)
+        {
+            // Arrange
+            var contact = new UpdateContactDto(
+                Guid.NewGuid(),
+                invalidName,
+                "123456789",
+                "john.doe@example.com",
+                "11"
+            );
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(() => _target.UpdateContact(contact));
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void UpdateContact_ShouldThrowException_WhenTelefoneIsInvalid(string? invalidTelefone)
+        {
+            // Arrange
+            var contact = new UpdateContactDto(
+                Guid.NewGuid(),
+                "John Doe",
+                invalidTelefone,
+                "john.doe@example.com",
+                "11"
+            );
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(() => _target.UpdateContact(contact));
+        }
+
+        [TestCase(null)]
+        [TestCase("invalid-email")]
+        [TestCase("invalid-email@")]
+        public void UpdateContact_ShouldThrowException_WhenEmailIsInvalid(string? invalidEmail)
+        {
+            // Arrange
+            var contact = new UpdateContactDto(
+                Guid.NewGuid(),
+                "John Doe",
+                "123456789",
+                invalidEmail,
+                "11"
+            );
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(() => _target.UpdateContact(contact));
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void UpdateContact_ShouldThrowException_WhenDDDIsInvalid(string? invalidDDD)
+        {
+            // Arrange
+            var contact = new UpdateContactDto(
+                Guid.NewGuid(),
+                "John Doe",
+                "123456789",
+                "john.doe@example.com",
+                invalidDDD
+            );
+
+            // Act & Assert
+            Assert.ThrowsAsync<ArgumentException>(() => _target.UpdateContact(contact));
+        }
     }
 }
