@@ -51,5 +51,17 @@ namespace TechChallenge.Infra.Data
 
             return response.Model.Id;
         }
+
+        public async Task Update(Contact contact)
+        {
+            var client = _supabaseConnection.GetClient();
+            await client.From<DatabaseContactDto>()
+                .Where(x => x.Id == contact.Id)
+                .Set(x => x.Name, contact.Name)
+                .Set(x => x.Telefone, contact.Telefone)
+                .Set(x => x.Email, contact.Email)
+                .Set(x => x.DDD, contact.DDD)
+                .Update();
+        }
     }
 }

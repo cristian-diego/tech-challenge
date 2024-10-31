@@ -38,6 +38,36 @@ namespace TechChallenge.Application.Services
             return _contactRepository.Save(new  Contact(Guid.Empty, contact.Name, contact.Telefone, contact.Email, contact.DDD));
         }
 
+        public Task UpdateContact(UpdateContactDto contact)
+        {
+            if (contact.Id == Guid.Empty)
+            {
+                throw new ArgumentException("Id cannot be empty.");
+            }
+
+            if (string.IsNullOrWhiteSpace(contact.Name))
+            {
+                throw new ArgumentException("Name cannot be null or whitespace.");
+            }
+
+            if (string.IsNullOrWhiteSpace(contact.Telefone))
+            {
+                throw new ArgumentException("Phone number cannot be null or whitespace.");
+            }
+
+            if (string.IsNullOrWhiteSpace(contact.DDD))
+            {
+                throw new ArgumentException("DDD cannot be null or whitespace.");
+            }
+
+            if (!IsValidEmail(contact.Email))
+            {
+                throw new ArgumentException("Invalid email format.");
+            }
+
+            return _contactRepository.Update(new Contact(contact.Id, contact.Name, contact.Telefone, contact.Email, contact.DDD));
+        }
+
         public Task<IEnumerable<Contact>> GetContacts()
             => _contactRepository.GetContacts();
 
@@ -46,6 +76,8 @@ namespace TechChallenge.Application.Services
 
         public Task DeleteContactById(Guid id)
            => _contactRepository.DeleteById(id);
+
+
         private bool IsValidEmail(string email)
         {
             try
@@ -58,5 +90,6 @@ namespace TechChallenge.Application.Services
                 return false;
             }
         }
+
     }
 }

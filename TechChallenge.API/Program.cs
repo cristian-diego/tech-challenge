@@ -72,5 +72,13 @@ app.MapDelete("/contact/{id}", async (Guid id, [FromServices] IContactService co
 .WithName("DeleteContactById")
 .WithOpenApi();
 
+app.MapPut("/contact/{id}", async (Guid id, [FromBody] UpdateContactDto contact, [FromServices] IContactService contactService) =>
+{
+    await contactService.UpdateContact(contact);
+    return Results.NoContent();
+})
+.WithName("UpdateContact")
+.WithOpenApi();
+
 app.Run();
 
