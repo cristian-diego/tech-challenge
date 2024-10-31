@@ -7,5 +7,6 @@ namespace TechChallenge.Application.Services
     {
         Task<Guid> AddContact(AddContactDto contact);
         Task<IEnumerable<Contact>> GetContacts();
+        Task<IEnumerable<Contact>> GetContactsByDDD(string ddd);
     }
 }

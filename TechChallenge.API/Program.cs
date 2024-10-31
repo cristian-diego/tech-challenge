@@ -42,13 +42,21 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 
-
 app.MapGet("/contact", ([FromServices] IContactService contactService) =>
 {
     return contactService.GetContacts();
 })
 .WithName("GetContacts")
 .WithOpenApi();
+
+app.MapGet("/contact/ddd/{ddd}", async (string ddd, [FromServices] IContactService contactService) =>
+{
+    var contacts = await contactService.GetContactsByDDD(ddd);
+    return Results.Ok(contacts);
+})
+.WithName("GetContactsByDDD")
+.WithOpenApi();
+
 
 app.MapPost("/contact", async ([FromBody] AddContactDto contact, [FromServices] IContactService contactService) =>
 {

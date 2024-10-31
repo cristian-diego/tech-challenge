@@ -19,6 +19,13 @@ namespace TechChallenge.Infra.Data
             return contacts.Models.Select(c => new Contact(c.Id, c.Name, c.Telefone, c.Email, c.DDD));
         }
 
+        public async Task<IEnumerable<Contact>> GetContactsByDDD(string ddd)
+        {
+            var client = _supabaseConnection.GetClient();
+            var contacts = await client.From<DatabaseContactDto>().Where(x => x.DDD == ddd).Get();
+            return contacts.Models.Select(c => new Contact(c.Id, c.Name, c.Telefone, c.Email, c.DDD));
+        }
+
         public async Task<Guid> Save(Contact contact)
         {
             var client = _supabaseConnection.GetClient();

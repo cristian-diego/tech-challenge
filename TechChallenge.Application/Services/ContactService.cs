@@ -38,8 +38,11 @@ namespace TechChallenge.Application.Services
             return _contactRepository.Save(new  Contact(Guid.Empty, contact.Name, contact.Telefone, contact.Email, contact.DDD));
         }
 
-        public Task<IEnumerable<Contact>> GetContacts() 
+        public Task<IEnumerable<Contact>> GetContacts()
             => _contactRepository.GetContacts();
+
+        public Task<IEnumerable<Contact>> GetContactsByDDD(string ddd)
+            => _contactRepository.GetContactsByDDD(ddd);
 
         private bool IsValidEmail(string email)
         {
