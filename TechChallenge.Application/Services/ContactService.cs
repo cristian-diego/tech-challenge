@@ -44,6 +44,8 @@ namespace TechChallenge.Application.Services
         public Task<IEnumerable<Contact>> GetContactsByDDD(string ddd)
             => _contactRepository.GetContactsByDDD(ddd);
 
+        public Task DeleteContactById(Guid id)
+           => _contactRepository.DeleteById(id);
         private bool IsValidEmail(string email)
         {
             try

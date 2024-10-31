@@ -64,5 +64,13 @@ app.MapPost("/contact", async ([FromBody] AddContactDto contact, [FromServices] 
     return Results.Created();
 });
 
+app.MapDelete("/contact/{id}", async (Guid id, [FromServices] IContactService contactService) =>
+{
+    await contactService.DeleteContactById(id);
+    return Results.NoContent();
+})
+.WithName("DeleteContactById")
+.WithOpenApi();
+
 app.Run();
 

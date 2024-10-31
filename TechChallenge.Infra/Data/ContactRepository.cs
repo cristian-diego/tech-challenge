@@ -12,6 +12,12 @@ namespace TechChallenge.Infra.Data
             _supabaseConnection = supabaseConnection;
         }
 
+        public Task DeleteById(Guid id)
+        {
+            var client = _supabaseConnection.GetClient();
+            return client.From<DatabaseContactDto>().Where(x => x.Id == id).Delete();
+        }
+
         public async Task<IEnumerable<Contact>> GetContacts()
         {
             var client = _supabaseConnection.GetClient();
