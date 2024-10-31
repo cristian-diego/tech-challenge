@@ -42,14 +42,14 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 
-app.MapGet("/contact", ([FromServices] IContactService contactService) =>
+app.MapGet("/contacts", ([FromServices] IContactService contactService) =>
 {
     return contactService.GetContacts();
 })
 .WithName("GetContacts")
 .WithOpenApi();
 
-app.MapGet("/contact/ddd/{ddd}", async (string ddd, [FromServices] IContactService contactService) =>
+app.MapGet("/contacts/ddd/{ddd}", async (string ddd, [FromServices] IContactService contactService) =>
 {
     var contacts = await contactService.GetContactsByDDD(ddd);
     return Results.Ok(contacts);
@@ -58,13 +58,13 @@ app.MapGet("/contact/ddd/{ddd}", async (string ddd, [FromServices] IContactServi
 .WithOpenApi();
 
 
-app.MapPost("/contact", async ([FromBody] AddContactDto contact, [FromServices] IContactService contactService) =>
+app.MapPost("/contacts", async ([FromBody] AddContactDto contact, [FromServices] IContactService contactService) =>
 {
     await contactService.AddContact(contact);
     return Results.Created();
 });
 
-app.MapDelete("/contact/{id}", async (Guid id, [FromServices] IContactService contactService) =>
+app.MapDelete("/contacts/{id}", async (Guid id, [FromServices] IContactService contactService) =>
 {
     await contactService.DeleteContactById(id);
     return Results.NoContent();
@@ -72,7 +72,7 @@ app.MapDelete("/contact/{id}", async (Guid id, [FromServices] IContactService co
 .WithName("DeleteContactById")
 .WithOpenApi();
 
-app.MapPut("/contact/{id}", async (Guid id, [FromBody] UpdateContactDto contact, [FromServices] IContactService contactService) =>
+app.MapPut("/contacts/{id}", async (Guid id, [FromBody] UpdateContactDto contact, [FromServices] IContactService contactService) =>
 {
     await contactService.UpdateContact(contact);
     return Results.NoContent();
