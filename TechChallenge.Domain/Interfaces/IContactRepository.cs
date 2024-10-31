@@ -1,10 +1,10 @@
 using TechChallenge.Domain.Entities;
-using System.Threading.Tasks;
 
 namespace TechChallenge.Domain.Interfaces
 {
     public interface IContactRepository
     {
-        Task Save(Contact contact);
+        Task<IEnumerable<Contact>> GetContacts();
+        Task<Guid> Save(Contact contact);
     }
 }

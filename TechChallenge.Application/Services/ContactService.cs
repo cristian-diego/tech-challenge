@@ -1,9 +1,10 @@
+using TechChallenge.API.Application.DTOs;
 using TechChallenge.Domain.Entities;
 using TechChallenge.Domain.Interfaces;
 
 namespace TechChallenge.Application.Services
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private readonly IContactRepository _contactRepository;
 
@@ -12,7 +13,7 @@ namespace TechChallenge.Application.Services
             _contactRepository = contactRepository;
         }
 
-        public async Task AddContact(Contact contact)
+        public Task<Guid> AddContact(AddContactDto contact)
         {
             if (string.IsNullOrWhiteSpace(contact.Name))
             {
@@ -34,8 +35,11 @@ namespace TechChallenge.Application.Services
                 throw new ArgumentException("Invalid email format.");
             }
 
-            await _contactRepository.Save(contact);
+            return _contactRepository.Save(new  Contact(Guid.Empty, contact.Name, contact.Telefone, contact.Email, contact.DDD));
         }
+
+        public Task<IEnumerable<Contact>> GetContacts() 
+            => _contactRepository.GetContacts();
 
         private bool IsValidEmail(string email)
         {

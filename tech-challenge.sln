@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.NTests", "TechChallenge.NTests\TechChallenge.NTests.csproj", "{29081EEF-1FD1-4337-81D0-707932103724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.NTests", "TechChallenge.NTests\TechChallenge.NTests.csproj", "{29081EEF-1FD1-4337-81D0-707932103724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.Domain", "TechChallenge.Domain\TechChallenge.Domain.csproj", "{03608416-9A9F-4B97-BE7B-9DFF557E92A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Domain", "TechChallenge.Domain\TechChallenge.Domain.csproj", "{03608416-9A9F-4B97-BE7B-9DFF557E92A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.Infra", "TechChallenge.Infra\TechChallenge.Infra.csproj", "{7411B052-5491-4C4F-89E1-A87548B0FD30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Infra", "TechChallenge.Infra\TechChallenge.Infra.csproj", "{7411B052-5491-4C4F-89E1-A87548B0FD30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.Application", "TechChallenge.Application\TechChallenge.Application.csproj", "{F069CCAC-B4DD-4910-AE7F-F14B21DCEAB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Application", "TechChallenge.Application\TechChallenge.Application.csproj", "{F069CCAC-B4DD-4910-AE7F-F14B21DCEAB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.API", "TechChallenge.API\TechChallenge.API.csproj", "{ACD72A16-1F61-4191-B0B9-A8240D8E2F61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F069CCAC-B4DD-4910-AE7F-F14B21DCEAB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F069CCAC-B4DD-4910-AE7F-F14B21DCEAB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F069CCAC-B4DD-4910-AE7F-F14B21DCEAB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD72A16-1F61-4191-B0B9-A8240D8E2F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD72A16-1F61-4191-B0B9-A8240D8E2F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD72A16-1F61-4191-B0B9-A8240D8E2F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD72A16-1F61-4191-B0B9-A8240D8E2F61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

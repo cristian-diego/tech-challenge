@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
     <PackageReference Include="SQLiteNetExtensions.Async" Version="2.1.0" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
+    <PackageReference Include="Supabase.Postgrest" Version="4.0.3" />
   </ItemGroup>
 
   <ItemGroup>
