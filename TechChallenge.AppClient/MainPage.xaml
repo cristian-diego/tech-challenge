@@ -3,7 +3,11 @@
     x:Class="TechChallenge.AppClient.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Tech Challenge - Contacts">
+    xmlns:local="clr-namespace:TechChallenge.MauiClient.ViewModels"
+    xmlns:models="clr-namespace:TechChallenge.AppClient.Models"
+    x:Name="view"
+    Title="Tech Challenge - Contacts"
+    x:DataType="local:ContactsViewModel">
 
     <Grid Padding="20" RowDefinitions="Auto,*">
         <VerticalStackLayout Grid.Row="0" Spacing="10">
@@ -14,31 +18,49 @@
             <Button Command="{Binding AddContactCommand}" Text="Add Contact" />
         </VerticalStackLayout>
 
-        <CollectionView
+        <ListView
             Grid.Row="1"
             Margin="0,20,0,0"
-            ItemsSource="{Binding Contacts}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="0,10" Padding="10">
-                        <VerticalStackLayout>
-                            <Label FontAttributes="Bold" Text="{Binding Name}" />
-                            <Label Text="{Binding Email}" />
-                            <Label>
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="(" />
-                                        <Span Text="{Binding DDD}" />
-                                        <Span Text=") " />
-                                        <Span Text="{Binding Telefone}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </VerticalStackLayout>
-                    </Frame>
+            HasUnevenRows="True"
+            ItemsSource="{Binding Contacts}"
+            SelectionMode="None"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:ContactDto">
+                    <ViewCell>
+                        <Grid RowDefinitions="Auto, 20">
+                            <Border Padding="10">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label FontAttributes="Bold" Text="{Binding Name}" />
+                                    <Label Text="{Binding Email}" />
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="(" />
+                                                <Span Text="{Binding DDD}" />
+                                                <Span Text=") " />
+                                                <Span Text="{Binding Telefone}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <HorizontalStackLayout Margin="0,10" Spacing="10">
+                                        <!--<Button
+                                            Command="{Binding BindingContext.EditContactCommand, Source={x:Reference view}}"
+                                            CommandParameter="{Binding .}"
+                                            Text="Editar" />-->
+                                        <Button
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ContactsViewModel}}, Path=DeleteContactCommand}"
+                                            CommandParameter="{Binding .}"
+                                            Text="Excluir" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <ActivityIndicator
             Grid.RowSpan="2"

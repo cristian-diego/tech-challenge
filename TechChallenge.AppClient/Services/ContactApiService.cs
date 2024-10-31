@@ -30,6 +30,6 @@ namespace TechChallenge.MauiClient.Services
             => _httpClient.PutAsJsonAsync("contacts", contact);
 
         public Task DeleteContactAsync(Guid id) 
-            => _httpClient.DeleteAsync($"{_baseUrl}/contacts/{id}");
+            => _httpClient.DeleteAsync($"contacts/{id}");
     }
 } 

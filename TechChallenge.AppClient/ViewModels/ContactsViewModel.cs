@@ -68,5 +68,49 @@ namespace TechChallenge.MauiClient.ViewModels
                 IsLoading = false;
             }
         }
+
+        [RelayCommand]
+        private async Task EditContact(ContactDto contact)
+        {
+            try
+            {
+                IsLoading = true;
+                if (contact != null)
+                {
+                    await _apiService.UpdateContactAsync(contact);
+                    await LoadContacts();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        [RelayCommand]
+        private async Task DeleteContact(ContactDto contact)
+        {
+            try
+            {
+                IsLoading = true;
+                if (contact != null)
+                {
+                    await _apiService.DeleteContactAsync(contact.Id);
+                    await LoadContacts();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
     }
-} 
+}
