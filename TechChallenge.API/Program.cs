@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using TechChallenge.API;
 using TechChallenge.API.Application.DTOs;
 using TechChallenge.API.Configuration;
 using TechChallenge.Application.Services;
@@ -40,6 +41,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.UseMiddleware<ValidationMiddleware>();
 
 
 app.MapGet("/contacts", ([FromServices] IContactService contactService) =>
